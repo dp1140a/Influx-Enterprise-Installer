@@ -34,11 +34,16 @@ That's it! You now should have an Influx Enterprise cluster up and running.
 4. You have an Influx Enterprise license key or file
 
 ## Configuration
-Installer configuration is done through the .eirc.js file located in conf.  This is a is file with configuration defined under the CONFIG object.  This object is read at startup time to configure our environment.
+Installer configuration is done through the .eirc.js file located in conf.  This is a file with configuration defined under the three objects:
+* BASE_REPO_URL
+* INFLUX_ENT_VERSION
+* CONFIG
+
+The CONIFG object is read at startup time to configure our environment.
 
 ### BASE_REPO_URL
 Defines the base download path for our installation packages.  If you have setup a local repo you would change this path to reflect that base URL.
-* Default setting: https://dl.influxdata.com/enterprise/releases/
+* Default setting: "https://dl.influxdata.com/enterprise/releases/"
 
 ### INFLUX_ENT_VERSION
 The version of Influx Enterprise we are using.  Currently this parameter has no effect and is merely a placeholder
@@ -92,17 +97,17 @@ This defines the path for our packages download
 ```javascript
 packages: {
 	telegraf: {
-		base: path.resolve(BASE_REPO_URL, 'telegraf/releases/'),
+		base: url.resolve(BASE_REPO_URL, 'telegraf/releases/'),
 		ubuntu: 'telegraf_1.2.1_amd64.deb',
 		centos: 'telegraf-1.2.1.x86_64.rpm'
 	},
 	metaNode: {
-		base: path.resolve(BASE_REPO_URL, 'enterprise/releases/'),
+		base: url.resolve(BASE_REPO_URL, 'enterprise/releases/'),
 		ubuntu: 'influxdb-meta_1.2.1-c1.2.2_amd64.deb',
 		centos: 'influxdb-meta-1.2.1_c1.2.2.x86_64.rpm'
 	},
 	dataNode: {
-		base: path.resolve(BASE_REPO_URL, 'enterprise/releases/'),
+		base: url.resolve(BASE_REPO_URL, 'enterprise/releases/'),
 		ubuntu: 'influxdb-data_1.2.1-c1.2.2_amd64.deb',
 		centos: 'influxdb-data-1.2.1_c1.2.2.x86_64.rpm'
 	},
@@ -112,18 +117,17 @@ packages: {
 		centos: 'nothing'
 	},
 	chronograf: {
-		base: path.resolve(BASE_REPO_URL, 'chronograf/releases/'),
+		base: url.resolve(BASE_REPO_URL, 'chronograf/releases/'),
 		ubuntu: 'chronograf_1.2.0~beta9_amd64.deb',
 		centos: 'chronograf-1.2.0~beta9.x86_64.rpm'
 	},
 	kapacitor: {
-		base: path.resolve(BASE_REPO_URL, 'kapacitor/releases/'),
+		base: url.resolve(BASE_REPO_URL, 'kapacitor/releases/'),
 		ubuntu: 'kapacitor_1.2.0_amd64.deb',
 		centos: 'kapacitor-1.2.0.x86_64.rpm'
 	}
 }
 ```
-
 
 ## Cluster Definition
 A cluster is defined through a cluster.json file.  This file can be located anywhere but the default location is in conf/cluster.json
