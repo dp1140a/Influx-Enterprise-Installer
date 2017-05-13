@@ -1,0 +1,39 @@
+{
+	"name": "enterpriseinstaller",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Dave Patton",
+	"license": "MIT",
+	"devDependencies": {
+		"browser-sync": "^2.18.6",
+		"chai": "^3.5.0",
+		"code": "^4.0.0",
+		"eslint": "*",
+		"gulp": "*",
+		"gulp-clean-css": "*",
+		"gulp-eslint": "*",
+		"gulp-header": "*",
+		"gulp-less": "*",
+		"gulp-nodemon": "*",
+		"gulp-rename": "*",
+		"gulp-uglify": "*",
+		"lab": "^11.2.1",
+		"plato": "^1.7.0"
+	},
+	"dependencies": {
+		"bluebird": "^3.5.0",
+		"hapi": "*",
+		"inert": "^4.2.0",
+		"json2toml": "^1.0.6",
+		"lodash": "^4.17.4",
+		"nodelogger": "git+https://github.com/dp1140a/nodeLogger.git#master",
+		"ssh-pool": "^1.4.1"
+	},
+	"optionalDependecies": {
+		"aws-sdk": "^2.49.0"
+	}
+}

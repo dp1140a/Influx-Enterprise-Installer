@@ -1,0 +1,185 @@
+{
+	"name": "myCluster",
+	"version": "1.2",
+	"OS": "centos",
+	"sshKeyFile": "test/.ssh/id_rsa",
+	"username": "root",
+	"license-key": "abcd-1234-efgh-5678-ijkl",
+	"hosts": [{
+			"hostname": "node1.influxdata.com",
+			"ip": "192.168.70.101",
+			"services": [
+				"metaNode", "dataNode"
+			]
+		},
+		{
+			"hostname": "node2.influxdata.com",
+			"ip": "192.168.70.102",
+			"services": [
+				"metaNode", "dataNode", "loadbalancer"
+			]
+		},
+		{
+			"hostname": "node3.influxdata.com",
+			"ip": "192.168.70.103",
+			"services": [
+				"metaNode", "dataNode"
+			]
+		}
+	],
+	"services": [{
+			"name": "metaNode",
+			"config": {
+				"reporting-disabled": false,
+				"bind-address": "",
+				"hostname": "",
+				"enterprise": {
+					"registration-enabled": true,
+					"registration-server-url": "",
+					"license-key": "",
+					"license-path": ""
+				},
+				"meta": {
+					"dir": "/var/lib/influxdb/meta",
+					"retention-autocreate": true,
+					"logging-enabled": true,
+					"bind-address": ":8089",
+					"auth-enabled": false,
+					"http-bind-address": ":8091",
+					"https-enabled": false,
+					"https-certificate": "",
+					"https-private-key": "",
+					"https-insecure-tls": false,
+					"gossip-frequency": "5s",
+					"announcement-expiration": "30s",
+					"election-timeout": "1s",
+					"heartbeat-timeout": "1s",
+					"leader-lease-timeout": "500ms",
+					"consensus-timeout": "30s",
+					"commit-timeout": "50ms",
+					"cluster-tracing": false,
+					"pprof-enabled": true,
+					"lease-duration": "1m0s",
+					"shared-secret": "",
+					"internal-shared-secret": ""
+				}
+			}
+		},
+		{
+			"name": "dataNode",
+			"config": {
+				"reporting-disabled": false,
+				"bind-address": ":8088",
+				"hostname": "",
+				"gossip-frequency": "3s",
+				"enterprise": {
+					"registration-enabled": true,
+					"registration-server-url": "",
+					"license-key": "",
+					"license-path": ""
+				},
+				"meta": {
+					"dir": "/var/lib/influxdb/meta",
+					"meta-tls-enabled": false,
+					"meta-insecure-tls": false,
+					"meta-auth-enabled": false,
+					"meta-internal-shared-secret": "",
+					"retention-autocreate": true,
+					"logging-enabled": true
+				},
+				"data": {
+					"dir": "/var/lib/influxdb/data",
+					"wal-dir": "/var/lib/influxdb/wal",
+					"query-log-enabled": true,
+					"cache-max-memory-size": 524288000,
+					"cache-snapshot-memory-size": 26214400,
+					"cache-snapshot-write-cold-duration": "10m0s",
+					"compact-full-write-cold-duration": "24h0m0s",
+					"max-series-per-database": 1000000,
+					"max-values-per-tag": 100000,
+					"trace-logging-enabled": false
+				},
+				"cluster": {
+					"dial-timeout": "1s",
+					"shard-writer-timeout": "5s",
+					"shard-reader-timeout": "0",
+					"max-remote-write-connections": 50,
+					"cluster-tracing": false,
+					"write-timeout": "10s",
+					"max-concurrent-queries": 0,
+					"query-timeout": 0,
+					"log-queries-after": 0,
+					"max-select-point": 0,
+					"max-select-series": 0,
+					"max-select-buckets": 0
+				},
+				"retention": {
+					"enabled": true,
+					"check-interval": "30m0s"
+				},
+				"shard-precreation": {
+					"enabled": true,
+					"check-interval": "10m0s",
+					"advance-period": "30m0s"
+				},
+				"admin": {
+					"enabled": false,
+					"bind-address": ":8083",
+					"https-enabled": false,
+					"https-certificate": "/etc/ssl/influxdb.pem"
+				},
+				"monitor": {
+					"store-enabled": true,
+					"store-database": "_internal",
+					"store-interval": "10s",
+					"remote-collect-interval": "10s"
+				},
+				"subscriber": {
+					"enabled": true,
+					"http-timeout": "30s",
+					"insecure-skip-verify": false,
+					"ca-certs": "",
+					"write-concurrency": 40,
+					"write-buffer-size": 1000
+				},
+				"http": {
+					"enabled": true,
+					"bind-address": ":8086",
+					"auth-enabled": false,
+					"log-enabled": true,
+					"write-tracing": false,
+					"pprof-enabled": true,
+					"https-enabled": false,
+					"https-certificate": "/etc/ssl/influxdb.pem",
+					"https-private-key": "",
+					"max-row-limit": 10000,
+					"max-connection-limit": 0,
+					"shared-secret": "",
+					"realm": "InfluxDB",
+					"unix-socket-enabled": false,
+					"bind-socket": "/var/run/influxdb.sock"
+				},
+				"continuous_queries": {
+					"log-enabled": true,
+					"enabled": true,
+					"run-interval": "1s"
+				},
+				"hinted-handoff": {
+					"dir": "/var/lib/influxdb/hh",
+					"enabled": true,
+					"max-size": 10737418240,
+					"max-age": "168h0m0s",
+					"retry-conncurrency": 20,
+					"retry-rate-limit": 0,
+					"retry-interval": "1s",
+					"retry-max-interval": "10s",
+					"purge-interval": "1m0s"
+				}
+			}
+		},
+		{
+			"name": "loadBalancer",
+			"config": {}
+		}
+	]
+}
